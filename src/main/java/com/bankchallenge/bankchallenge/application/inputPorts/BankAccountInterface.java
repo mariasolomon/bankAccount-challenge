@@ -2,6 +2,7 @@ package com.bankchallenge.bankchallenge.application.inputPorts;
 
 import com.bankchallenge.bankchallenge.domain.models.BankAccount;
 
+
 public interface BankAccountInterface {
     Iterable<BankAccount> getAccounts();
     BankAccount getAccount(Integer id);
