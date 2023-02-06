@@ -1,7 +1,7 @@
 # Bank Account challenge
 ## Description
 The goal of this project is to create a REST Spring Boot application with a hexagonal architecture for a banking use case.
-The TDD red/green cycle is adopted and can be viewed in the commits. The commits are divided in 3 main parts : 
+The TDD red/green cycle is adopted and can be viewed in the commits. The commits are divided in 3 main parts: 
 1. Business models
 2. API adapter
 3. Persistence adapter
@@ -34,3 +34,9 @@ DELETE | /transactions/{id}  | remove a transaction by its ID   |
 GET   | /transactions/check/{id} | check the transactions of the account ID  |
 POST   | /transactions/send | send a deposit command  |
 POST   | /transactions/withdraw | send a withdrawal command |
+
+More description on the API can be found on http://localhost:8080/swagger-ui/
+
+## Arhitecture view
+![Capture d’écran 2023-02-06 121500](https://user-images.githubusercontent.com/30388010/217011205-c7f73c9e-a0b3-495a-87bb-afe55eb21cb2.png)
+
