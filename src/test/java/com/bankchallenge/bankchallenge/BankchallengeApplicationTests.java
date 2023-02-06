@@ -12,6 +12,5 @@ class BankchallengeApplicationTests {
 	
 	@Test
 	void contextLoads() {
-
 	}
 }
