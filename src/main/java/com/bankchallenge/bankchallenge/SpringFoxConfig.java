@@ -1,4 +1,4 @@
-package com.bankchallenge;
+package com.bankchallenge.bankchallenge;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
