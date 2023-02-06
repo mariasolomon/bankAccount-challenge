@@ -6,18 +6,32 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
+import com.bankchallenge.bankchallenge.application.services.TransactionNotFoundException;
+import com.bankchallenge.bankchallenge.application.services.TransactionService;
 import com.bankchallenge.bankchallenge.domain.models.Transaction;
 import com.bankchallenge.bankchallenge.domain.models.TRANSACTION_TYPE;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 @SpringBootTest
+@ContextConfiguration(classes=BankchallengeApplication.class)
+@AutoConfigureMockMvc
+@TestInstance(Lifecycle.PER_CLASS)
 public class TransactionServiceTest {
+    @Autowired
+    public TransactionService service;
 
     public List<Transaction> setUpTr = new ArrayList<>();
 
-    @Test
+    @BeforeAll
     public void setUp() throws Exception {
         Transaction tr1 = service.createTransaction(new Transaction(1,100, TRANSACTION_TYPE.DEPOSIT));
         Transaction tr2 = service.createTransaction(new Transaction(1,200, TRANSACTION_TYPE.WITHDRAWAL));
@@ -56,12 +70,12 @@ public class TransactionServiceTest {
         Transaction testTr = setUpTr.get(1);
         service.deleteTransaction(testTr.getId());
         
-        assertThrows(TransactionNotFoundException,() -> service.getTransaction(testTr.getId()));
+        assertThrows(TransactionNotFoundException.class,() -> service.getTransaction(testTr.getId()));
     }
 
-    @Test
+    @AfterAll
     public void deleteAccounts() {
         service.deleteTransactions();
-        assertThrows(TransactionNotFoundException,() -> service.getTransactions());
+        assertThrows(TransactionNotFoundException.class,() -> service.getTransactions());
     }
 }

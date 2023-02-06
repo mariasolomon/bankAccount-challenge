@@ -7,17 +7,32 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
+import com.bankchallenge.bankchallenge.application.services.AccountNotFoundException;
+import com.bankchallenge.bankchallenge.application.services.BankAccountService;
 import com.bankchallenge.bankchallenge.domain.models.BankAccount;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 @SpringBootTest
+@ContextConfiguration(classes=BankchallengeApplication.class)
+@AutoConfigureMockMvc
+@TestInstance(Lifecycle.PER_CLASS)
 public class BankAccountServiceTest {
+
+    @Autowired
+    public BankAccountService service;
 
     public List<BankAccount> setUpAcc = new ArrayList<>();
 
-    @Test
+    @BeforeAll
     public void setUp() throws Exception {
         BankAccount acc1 = service.createAccount(new BankAccount(100));
         BankAccount acc2 = service.createAccount(new BankAccount(200));
@@ -64,14 +79,14 @@ public class BankAccountServiceTest {
         BankAccount testAcc = setUpAcc.get(2);
         service.deleteAccount(testAcc.getId());
         
-        assertThrows(AccountNotFoundException,() -> service.getAccount(testAcc.getId()));
+        assertThrows(AccountNotFoundException.class,() -> service.getAccount(testAcc.getId()));
     }
 
-    @Test
+    @AfterAll
     public void deleteAccounts() {
 
         service.deleteAccounts();
-        assertThrows(AccountNotFoundException,() -> service.getAccounts());
+        assertThrows(AccountNotFoundException.class,() -> service.getAccounts());
     
     }
 }
