@@ -8,17 +8,27 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import com.bankchallenge.bankchallenge.application.services.BankAccountService;
+import com.bankchallenge.bankchallenge.application.services.SendWithdrawalService;
 import com.bankchallenge.bankchallenge.domain.models.Transaction;
 import com.bankchallenge.bankchallenge.domain.models.BankAccount;
 import com.bankchallenge.bankchallenge.domain.models.TRANSACTION_TYPE;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 @SpringBootTest
+@ContextConfiguration(classes=BankchallengeApplication.class)
+@AutoConfigureMockMvc
+@TestInstance(Lifecycle.PER_CLASS)
 public class SendWithdrawalServiceTest {
-    
+    @Autowired
+    public SendWithdrawalService withdrawalService;
+
     @Autowired
     public BankAccountService accService;
 
