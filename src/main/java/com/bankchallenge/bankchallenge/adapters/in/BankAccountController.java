@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bankchallenge.bankchallenge.application.inputPorts.BankAccountInterface;
 import com.bankchallenge.bankchallenge.domain.models.BankAccount;
 
-
 @RestController
 @RequestMapping(value = "/accounts")
 public class BankAccountController {
