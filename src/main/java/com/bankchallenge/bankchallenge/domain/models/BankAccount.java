@@ -1,7 +1,15 @@
 package com.bankchallenge.bankchallenge.domain.models;
 
-public class BankAccount {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+import org.springframework.hateoas.RepresentationModel;
+
+@Entity
+public class BankAccount extends RepresentationModel<BankAccount> {
+    @Id @GeneratedValue(strategy = GenerationType.AUTO) 
     private Integer accountId;
     private Integer balance;
   
@@ -21,14 +29,6 @@ public class BankAccount {
         return this.balance;
     }
 
-    public void setBalance(Integer balance) {
-        this.balance = balance;
-    }
-
-    public void setAccountId(Integer accountId) {
-        this.accountId = accountId;
-    }
-
     @Override
     public String toString() {
         return "{id:" + accountId + "; balance:" + balance + "}";
@@ -38,4 +38,11 @@ public class BankAccount {
         return "{ \"balance\":" + balance + "}";
     }
 
+    public void setBalance(Integer balance) {
+        this.balance = balance;
+    }
+
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
+    }
 }
