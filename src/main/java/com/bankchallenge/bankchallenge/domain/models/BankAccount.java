@@ -28,4 +28,14 @@ public class BankAccount {
     public void setAccountId(Integer accountId) {
         this.accountId = accountId;
     }
+
+    @Override
+    public String toString() {
+        return "{id:" + accountId + "; balance:" + balance + "}";
+    }
+
+    public String toJson() {
+        return "{ \"balance\":" + balance + "}";
+    }
+
 }
